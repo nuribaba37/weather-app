@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hava Durumu Uygulaması</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Hava Durumu</h1>
+
+    <div class="search-box">
+      <input type="text" id="cityInput" placeholder="Şehir adı gir..." aria-label="Şehir adı" autocomplete="off" autofocus />
+      <button id="clearBtn" class="clear-btn" aria-label="Temizle" title="Temizle">✖</button>
+      <button id="searchBtn">Ara</button>
+    </div>
+
+    <div id="suggestions" class="suggestions" role="listbox" aria-label="Öneriler"></div>
+    <div id="recent" class="recent"></div>
+
+    <div id="result" class="result">
+      <p>Bir şehir arat.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
