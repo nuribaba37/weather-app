@@ -1,0 +1,6 @@
+# Normalize line endings for common text files
+* text=auto
+*.html text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.json text eol=lf

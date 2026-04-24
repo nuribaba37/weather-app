@@ -148,7 +148,7 @@ async function loadTurkeyDistricts() {
       const localResp = await fetch('./data/il-ilce.json');
       if (localResp && localResp.ok) {
         json = await localResp.json();
-        console.log('Loaded local Turkey districts from ./data/il-ilce.json');
+        console.debug('Loaded local Turkey districts from ./data/il-ilce.json');
       }
     } catch (e) {
       // ignore and fallback to remote
@@ -633,7 +633,7 @@ window.addEventListener('load', () => {
     navigator.geolocation.getCurrentPosition((pos) => {
       fetchWeatherByCoords(pos.coords.latitude, pos.coords.longitude);
     }, (err) => {
-      console.log('Konum izni reddedildi veya hata:', err);
+      console.warn('Konum izni reddedildi veya hata:', err);
     });
   }
 });
