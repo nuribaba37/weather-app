@@ -16,10 +16,17 @@
       <button id="searchBtn">Ara</button>
     </div>
 
+    <div class="controls">
+      <div class="unit-toggle" role="radiogroup" aria-label="Sıcaklık birimi">
+        <button id="unitCBtn" class="unit-btn" aria-pressed="false">°C</button>
+        <button id="unitFBtn" class="unit-btn" aria-pressed="false">°F</button>
+      </div>
+    </div>
+
     <div id="suggestions" class="suggestions" role="listbox" aria-label="Öneriler"></div>
     <div id="recent" class="recent"></div>
 
-    <div id="result" class="result">
+    <div id="result" class="result" aria-live="polite" aria-atomic="true">
       <p>Bir şehir arat.</p>
     </div>
   </div>
