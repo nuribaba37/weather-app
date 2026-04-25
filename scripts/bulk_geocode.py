@@ -12,6 +12,7 @@ import argparse
 import json
 import time
 import urllib.parse
+import unicodedata
 import sys
 import os
 
@@ -34,16 +35,38 @@ def save_json(path, data):
 
 
 def geocode_query(q):
-    url = f"https://geocoding-api.open-meteo.com/v1/search?name={urllib.parse.quote(q)}&count=1&language=tr&format=json"
+    # request up to 5 candidates so we can try to match admin1 (province)
+    url = f"https://geocoding-api.open-meteo.com/v1/search?name={urllib.parse.quote(q)}&count=5&language=tr&format=json"
     headers = {'User-Agent': 'weather-app-bulk-geocode/1.0'}
     if HAVE_REQUESTS:
-        resp = requests.get(url, headers=headers, timeout=30)
-        resp.raise_for_status()
-        return resp.json()
+        try:
+            resp = requests.get(url, headers=headers, timeout=30)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception:
+            return {}
     else:
         req = _urllib.Request(url, headers=headers)
-        with _urllib.urlopen(req, timeout=30) as resp:
-            return json.load(resp)
+        try:
+            with _urllib.urlopen(req, timeout=30) as resp:
+                return json.load(resp)
+        except Exception:
+            return {}
+
+
+def normalize_text(s):
+    if not s:
+        return ''
+    # replace common Turkish chars to ascii for comparison
+    trans = str.maketrans({'İ':'I','ı':'i','Ç':'C','ç':'c','Ğ':'G','ğ':'g','Ö':'O','ö':'o','Ş':'S','ş':'s','Ü':'U','ü':'u'})
+    try:
+        s2 = s.translate(trans)
+    except Exception:
+        s2 = s
+    # decompose accents and remove
+    s2 = unicodedata.normalize('NFKD', s2)
+    s2 = ''.join(c for c in s2 if not unicodedata.combining(c))
+    return s2.strip().lower()
 
 
 def main():
@@ -93,25 +116,54 @@ def main():
         if key in cache:
             print(f"[{idx+1}/{total}] cached: {district} / {province} -> {cache[key].get('latitude')},{cache[key].get('longitude')}")
             continue
-        q = f"{district}, {province}, Turkey"
-        print(f"[{idx+1}/{total}] querying: {q}")
+
+        # try multiple query patterns to increase match rate
+        patterns = [
+            f"{district}, {province}, Turkey",
+            f"{district} {province} Turkey",
+            f"{district}, {province}",
+            f"{district} Turkey",
+            f"{district}"
+        ]
+
+        chosen = None
+        print(f"[{idx+1}/{total}] querying for: {district} / {province}")
         try:
-            res = geocode_query(q)
-            if res and res.get('results'):
-                r = res['results'][0]
-                cache[key] = {
-                    'latitude': r.get('latitude'),
-                    'longitude': r.get('longitude'),
-                    'name': r.get('name'),
-                    'admin1': r.get('admin1'),
-                    'country': r.get('country')
-                }
-                print(f" -> {cache[key]['latitude']},{cache[key]['longitude']} ({r.get('name')})")
-            else:
+            for q in patterns:
+                print(f"  -> try: {q}")
+                res = geocode_query(q)
+                if not res or not res.get('results'):
+                    print("    no candidates")
+                    continue
+                # prefer candidates whose admin1 matches the province
+                candidates = res.get('results', [])
+                prov_norm = normalize_text(province or '')
+                best = None
+                for c in candidates:
+                    adm1 = c.get('admin1') or ''
+                    if normalize_text(adm1) == prov_norm:
+                        best = c
+                        break
+                if not best:
+                    best = candidates[0]
+                if best:
+                    chosen = best
+                    cache[key] = {
+                        'latitude': best.get('latitude'),
+                        'longitude': best.get('longitude'),
+                        'name': best.get('name'),
+                        'admin1': best.get('admin1'),
+                        'country': best.get('country')
+                    }
+                    print(f"    -> match: {cache[key]['latitude']},{cache[key]['longitude']} ({best.get('name')})")
+                    break
+
+            if not chosen:
                 cache[key] = {'latitude': None, 'longitude': None}
-                print(" -> no result")
+                print(" -> no result after tries")
         except Exception as e:
             print(" -> error:", e)
+
         # persist cache incrementally
         try:
             save_json(args.cache, cache)
