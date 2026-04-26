@@ -1970,5 +1970,361 @@
   "Kastamonu|||ABANA": {
     "latitude": null,
     "longitude": null
+  },
+  "İstanbul|||ADALAR": {
+    "latitude": null,
+    "longitude": null
+  },
+  "İstanbul|||ARNAVUTKÖY": {
+    "latitude": null,
+    "longitude": null
+  },
+  "İstanbul|||ATAŞEHİR": {
+    "latitude": null,
+    "longitude": null
+  },
+  "İstanbul|||AVCILAR": {
+    "latitude": null,
+    "longitude": null
+  },
+  "İstanbul|||BAĞCILAR": {
+    "latitude": null,
+    "longitude": null
+  },
+  "İstanbul|||BAHÇELİEVLER": {
+    "latitude": null,
+    "longitude": null
+  },
+  "İstanbul|||BAKIRKÖY": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kastamonu|||AĞLI": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kastamonu|||ARAÇ": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kastamonu|||AZDAVAY": {
+    "latitude": 41.64267,
+    "longitude": 33.3,
+    "name": "Azdavay",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||BOZKURT": {
+    "latitude": 41.95769,
+    "longitude": 34.01087,
+    "name": "Bozkurt",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||CİDE": {
+    "latitude": 41.89211,
+    "longitude": 33.00439,
+    "name": "Cide",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||ÇATALZEYTİN": {
+    "latitude": 41.95314,
+    "longitude": 34.21627,
+    "name": "Çatalzeytin",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||DADAY": {
+    "latitude": 41.47866,
+    "longitude": 33.46667,
+    "name": "Daday",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||DEVREKANİ": {
+    "latitude": 41.60303,
+    "longitude": 33.83922,
+    "name": "Devrekani",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||DOĞANYURT": {
+    "latitude": 42.00457,
+    "longitude": 33.46029,
+    "name": "Doğanyurt",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||HANÖNÜ": {
+    "latitude": 41.62705,
+    "longitude": 34.46667,
+    "name": "Hanönü",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||İHSANGAZİ": {
+    "latitude": 41.20432,
+    "longitude": 33.55455,
+    "name": "İhsangazi",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||İNEBOLU": {
+    "latitude": 41.97893,
+    "longitude": 33.76012,
+    "name": "İnebolu",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||KÜRE": {
+    "latitude": 34.23222,
+    "longitude": 132.56657,
+    "name": "Kure",
+    "admin1": "Hiroşima",
+    "country": "Japonya"
+  },
+  "Kastamonu|||PINARBAŞI": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kastamonu|||SEYDİLER": {
+    "latitude": 41.62005,
+    "longitude": 33.71815,
+    "name": "Seydiler",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||ŞENPAZAR": {
+    "latitude": 41.8089,
+    "longitude": 33.23135,
+    "name": "Şenpazar",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||TAŞKÖPRÜ": {
+    "latitude": 41.5098,
+    "longitude": 34.21414,
+    "name": "Taşköprü",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kastamonu|||TOSYA": {
+    "latitude": 41.01545,
+    "longitude": 34.04013,
+    "name": "Tosya",
+    "admin1": "Kastamonu İli",
+    "country": "Türkiye"
+  },
+  "Kayseri|||AKKIŞLA": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kayseri|||BÜNYAN": {
+    "latitude": 38.8463,
+    "longitude": 35.86033,
+    "name": "Bünyan",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kayseri|||DEVELİ": {
+    "latitude": 38.39056,
+    "longitude": 35.49222,
+    "name": "Develi",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kayseri|||FELAHİYE": {
+    "latitude": 39.09056,
+    "longitude": 35.56722,
+    "name": "Felahiye",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kayseri|||HACILAR": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kayseri|||İNCESU": {
+    "latitude": 38.6224,
+    "longitude": 35.18261,
+    "name": "İncesu",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kayseri|||KOCASİNAN": {
+    "latitude": 38.77147,
+    "longitude": 35.5725,
+    "name": "Kocasinan",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kayseri|||MELİKGAZİ": {
+    "latitude": 38.75,
+    "longitude": 35.45,
+    "name": "Melikgazi",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kayseri|||ÖZVATAN": {
+    "latitude": 39.1069,
+    "longitude": 35.69994,
+    "name": "Özvatan",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kayseri|||PINARBAŞI": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kayseri|||SARIOĞLAN": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kayseri|||SARIZ": {
+    "latitude": 30.99806,
+    "longitude": 55.995,
+    "name": "Sīrīz",
+    "admin1": "Kirman Eyaleti",
+    "country": "İran"
+  },
+  "Kayseri|||TALAS": {
+    "latitude": 38.6908,
+    "longitude": 35.5538,
+    "name": "Talas",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kayseri|||TOMARZA": {
+    "latitude": 38.44722,
+    "longitude": 35.79917,
+    "name": "Tomarza",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kayseri|||YAHYALI": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kayseri|||YEŞİLHİSAR": {
+    "latitude": 38.35232,
+    "longitude": 35.08873,
+    "name": "Yeşilhisar",
+    "admin1": "Kayseri",
+    "country": "Türkiye"
+  },
+  "Kırklareli|||MERKEZ": {
+    "latitude": 40.12954,
+    "longitude": 26.42075,
+    "name": "Merkez",
+    "admin1": "Çanakkale",
+    "country": "Türkiye"
+  },
+  "Kırklareli|||BABAESKİ": {
+    "latitude": 41.42809,
+    "longitude": 27.0966,
+    "name": "Babaeski",
+    "admin1": "Kırklareli",
+    "country": "Türkiye"
+  },
+  "Kırklareli|||DEMİRKÖY": {
+    "latitude": 41.82413,
+    "longitude": 27.76515,
+    "name": "Demirköy",
+    "admin1": "Kırklareli",
+    "country": "Türkiye"
+  },
+  "Kırklareli|||KOFÇAZ": {
+    "latitude": 41.94481,
+    "longitude": 27.15829,
+    "name": "Kofçaz",
+    "admin1": "Kırklareli",
+    "country": "Türkiye"
+  },
+  "Kırklareli|||LÜLEBURGAZ": {
+    "latitude": 41.40173,
+    "longitude": 27.35746,
+    "name": "Lüleburgaz",
+    "admin1": "Kırklareli",
+    "country": "Türkiye"
+  },
+  "Kırklareli|||PEHLİVANKÖY": {
+    "latitude": 41.34812,
+    "longitude": 26.92522,
+    "name": "Pehlivanköy",
+    "admin1": "Kırklareli",
+    "country": "Türkiye"
+  },
+  "Kırklareli|||PINARHİSAR": {
+    "latitude": 38.12471,
+    "longitude": 41.40663,
+    "name": "Pınarhisar",
+    "admin1": "Batman İli",
+    "country": "Türkiye"
+  },
+  "Kırklareli|||VİZE": {
+    "latitude": 41.57629,
+    "longitude": 27.76732,
+    "name": "Vize",
+    "admin1": "Kırklareli",
+    "country": "Türkiye"
+  },
+  "Kırşehir|||MERKEZ": {
+    "latitude": 40.12954,
+    "longitude": 26.42075,
+    "name": "Merkez",
+    "admin1": "Çanakkale",
+    "country": "Türkiye"
+  },
+  "Kırşehir|||AKÇAKENT": {
+    "latitude": 39.62278,
+    "longitude": 34.09583,
+    "name": "Akçakent",
+    "admin1": "Kırşehir",
+    "country": "Türkiye"
+  },
+  "Kırşehir|||AKPINAR": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kırşehir|||BOZTEPE": {
+    "latitude": 39.26972,
+    "longitude": 34.26111,
+    "name": "Boztepe",
+    "admin1": "Kırşehir",
+    "country": "Türkiye"
+  },
+  "Kırşehir|||ÇİÇEKDAĞI": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kırşehir|||KAMAN": {
+    "latitude": 39.3575,
+    "longitude": 33.72389,
+    "name": "Kaman",
+    "admin1": "Kırşehir",
+    "country": "Türkiye"
+  },
+  "Kırşehir|||MUCUR": {
+    "latitude": 39.06147,
+    "longitude": 34.38286,
+    "name": "Mucur",
+    "admin1": "Kırşehir",
+    "country": "Türkiye"
+  },
+  "Kocaeli|||BAŞİSKELE": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kocaeli|||ÇAYIROVA": {
+    "latitude": null,
+    "longitude": null
+  },
+  "Kocaeli|||DARICA": {
+    "latitude": 43.98167,
+    "longitude": 21.70389,
+    "name": "Darica",
+    "admin1": "Central Serbia",
+    "country": "Sırbistan"
   }
 }
