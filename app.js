@@ -758,6 +758,35 @@ function renderRecent() {
   });
 }
 
+async function reindexLocalDistricts() {
+  try {
+    const resp = await fetch('data/il-ilce-with-loc.json');
+    if (!resp.ok) return false;
+    const data = await resp.json();
+    const flat = [];
+    const provinces = Array.isArray(data) ? data : (data.data || []);
+    for (const p of provinces) {
+      const province = p.il_adi || p.province || p.admin1 || p.name || '';
+      const ilceler = p.ilceler || p.districts || p.children || [];
+      for (const ilce of ilceler) {
+        const district = ilce.ilce_adi || ilce.ilce || ilce.district || ilce.name || '';
+        const lat = (ilce.latitude !== undefined ? ilce.latitude : (ilce.lat !== undefined ? ilce.lat : null));
+        const lon = (ilce.longitude !== undefined ? ilce.longitude : (ilce.lon !== undefined ? ilce.lon : null));
+        flat.push({ province, district, latitude: lat, longitude: lon });
+      }
+    }
+    flat.sort((a,b) => (a.district||'').localeCompare(b.district||'','tr'));
+    localDistrictsFlat = flat;
+    if (typeof Fuse !== 'undefined') {
+      try { fuseSearch = new Fuse(localDistrictsFlat, { keys: ['district','province'], threshold: 0.35, ignoreLocation: true }); } catch(e) { fuseSearch = null; }
+    }
+    return true;
+  } catch (e) {
+    console.warn('reindexLocalDistricts failed', e);
+    return false;
+  }
+}
+
 window.addEventListener('load', () => {
   renderRecent();
   // load Turkey district list for offline/local suggestions
