@@ -49,12 +49,22 @@ async function reindexLocalDistricts() {
       const province = p.il_adi || p.province || '';
       const ilceler = p.ilceler || [];
       for (const ic of ilceler) {
-        flat.push({ province, district: ic.ilce_adi || ic.ilce || ic.name || '', latitude: ic.latitude ?? ic.lat ?? null, longitude: ic.longitude ?? ic.lon ?? null });
+        const districtName = ic.ilce_adi || ic.ilce || ic.name || '';
+        flat.push({ 
+          province, 
+          district: districtName, 
+          latitude: ic.latitude ?? ic.lat ?? null, 
+          longitude: ic.longitude ?? ic.lon ?? null,
+          province_norm: normalizeForSearch(province),
+          district_norm: normalizeForSearch(districtName)
+        });
       }
     }
     localDistrictsFlat = flat;
     if (typeof Fuse !== 'undefined') {
-      try { fuseSearch = new Fuse(localDistrictsFlat, { keys: ['district','province'], threshold: 0.35, ignoreLocation: true }); } catch(e) { fuseSearch = null; }
+      try {
+        fuseSearch = new Fuse(localDistrictsFlat, { keys: ['district_norm','province_norm','district','province'], threshold: 0.35, ignoreLocation: true });
+      } catch(e) { fuseSearch = null; }
     }
     return true;
   } catch (e) {
@@ -66,12 +76,13 @@ async function reindexLocalDistricts() {
 async function searchSuggestions(query) {
   const q = String(query || '').trim();
   if (!q) { renderSuggestions([], ''); return; }
+  const qnorm = normalizeForSearch(q);
   const results = [];
 
   // local Fuse results
-  if (fuseSearch && localDistrictsFlat && localDistrictsFlat.length) {
+    if (fuseSearch && localDistrictsFlat && localDistrictsFlat.length) {
     try {
-      const fs = fuseSearch.search(q).slice(0, 10);
+      const fs = fuseSearch.search(qnorm).slice(0, 10);
       for (const r of fs) {
         const item = r.item || r;
         results.push({ source: 'local', name: item.district, admin1: item.province, latitude: item.latitude, longitude: item.longitude });
