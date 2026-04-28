@@ -487,6 +487,22 @@ async function ipFallback() {
   return null;
 }
 
+// reverse geocode to get a human-readable place name for coordinates
+async function reverseGeocode(latitude, longitude) {
+  try {
+    const url = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${encodeURIComponent(latitude)}&longitude=${encodeURIComponent(longitude)}&count=1&language=tr&format=json`;
+    const r = await fetch(url);
+    if (!r.ok) return null;
+    const d = await r.json().catch(() => null);
+    if (!d || !d.results || !d.results.length) return null;
+    const res = d.results[0];
+    return { name: res.name || '', admin1: res.admin1 || '', country: res.country || '' };
+  } catch (e) {
+    console.warn('reverseGeocode err', e);
+    return null;
+  }
+}
+
 // Attach handler to explicit "use my location" button
 const useLocationBtn = document.getElementById('useLocationBtn');
 if (useLocationBtn) {
@@ -504,8 +520,23 @@ if (useLocationBtn) {
           showGeoNotice('');
           const { latitude, longitude } = pos.coords || {};
           if (latitude != null && longitude != null) {
-            fetchAndRender(latitude, longitude, '', '');
-            try { saveRecent('Konumum'); } catch(e) {}
+            (async () => {
+              try {
+                let placeName = '';
+                let country = '';
+                const rev = await reverseGeocode(latitude, longitude);
+                if (rev) {
+                  placeName = rev.name || rev.admin1 || '';
+                  country = rev.country || '';
+                }
+                if (placeName) showGeoNotice(`Konum: ${placeName}. Hava yükleniyor...`, false);
+                fetchAndRender(latitude, longitude, placeName, country);
+                try { saveRecent('Konumum' + (placeName ? `: ${placeName}` : '')); } catch(e) {}
+              } catch (e) {
+                fetchAndRender(latitude, longitude, '', '');
+                try { saveRecent('Konumum'); } catch(e) {}
+              }
+            })();
           } else {
             showGeoNotice('Konum alınamadı.', true);
           }
@@ -517,9 +548,25 @@ if (useLocationBtn) {
               // attempt IP-based fallback
               ipFallback().then(loc => {
                 if (loc && loc.latitude != null && loc.longitude != null) {
-                  showGeoNotice(`Yaklaşık konum: ${loc.city || loc.region || ''}. Hava yükleniyor...`, false);
-                  fetchAndRender(loc.latitude, loc.longitude, loc.city || '', loc.country || '');
-                  try { saveRecent('IP konumu' + (loc.city ? `: ${loc.city}` : '')); } catch(e) {}
+                  (async () => {
+                    try {
+                      let placeName = loc.city || loc.region || '';
+                      let country = loc.country || '';
+                      if (!placeName) {
+                        const rev = await reverseGeocode(loc.latitude, loc.longitude);
+                        if (rev) {
+                          placeName = rev.name || rev.admin1 || '';
+                          country = country || rev.country || '';
+                        }
+                      }
+                      showGeoNotice(placeName ? `Yaklaşık konum: ${placeName}. Hava yükleniyor...` : 'Yaklaşık konum tespit edildi. Hava yükleniyor...', false);
+                      fetchAndRender(loc.latitude, loc.longitude, placeName, country);
+                      try { saveRecent('IP konumu' + (placeName ? `: ${placeName}` : '')); } catch(e) {}
+                    } catch (e) {
+                      console.warn('ip fallback reverse err', e);
+                      showGeoNotice('IP tabanlı konum alınamadı.', true);
+                    }
+                  })();
                 } else {
                   showGeoNotice('IP tabanlı konum alınamadı. Tarayıcı izinlerini açın.', true);
                 }
