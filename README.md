@@ -17,6 +17,39 @@ Basit, istemci tarafı hava durumu uygulaması — Open-Meteo API kullanır.
 2. Konum izni verirseniz, varsayılan olarak bulunduğunuz konumun hava durumu yüklenir.
 3. Arama kutusuna şehir adı yazıp `Ara` butonuna basın veya Enter tuşuna basın.
 
+## Konum İzinleri
+
+- Uygulamada sağ üstteki "Konumumu Kullan" butonuna basarak tarayıcınızdan konum izni istenebilir. Eğer izin verirseniz, bulunduğunuz konuma göre hava durumu otomatik yüklenir.
+- Eğer konum isteği görünmüyor veya daha önce engellediyseniz, tarayıcıda site izinlerinden `localhost` için Konum (Location) iznini açmanız gerekir. Örnek adımlar:
+	- Chrome / Edge: adres çubuğundaki kilit simgesine tıklayın → Site ayarları → Konum → `Allow` (İzin ver).
+	- Firefox: adres çubuğundaki kilit → Permissions → Location → `Allow` veya Options → Privacy & Security → Permissions → Location → Settings… üzerinden `localhost` girdisini düzenleyin.
+	- Safari (macOS): Safari → Settings for This Website → Location → `Allow` veya Sistem Tercihleri → Güvenlik & Gizlilik → Konum Servisleri.
+- `file://` ile açılan sayfalarda tarayıcılar genellikle `fetch` ve geolocation erişimini kısıtlayabilir; bu yüzden yerel sunucu kullanmanız önerilir (bkz. "Tek komutla").
+
+## IP tabanlı fallback
+
+Eğer kullanıcı tarayıcı konum iznini reddederse uygulama otomatik olarak IP tabanlı yaklaşık bir konum deneyecektir (ör. ipapi). Bu, kesin koordinat vermez fakat bulunduğunuz şehre yakın tahmini bir konum sağlar ve hava verilerini getirmeye yarar. Eğer IP tabanlı konum da alınamazsa, manuel arama yapmanız gerekecektir.
+
+### Tek komutla (lokal sunucu)
+Konsolda proje klasöründe aşağıdaki komutlardan birini çalıştırın, sonra tarayıcıda `http://localhost:8000` açın:
+
+Windows (CMD / PowerShell):
+```
+run-local.bat
+``` 
+
+macOS / Linux:
+```
+./run-local.sh
+```
+
+Alternatif olarak doğrudan:
+```
+python -m http.server 8000
+# veya
+python3 -m http.server 8000
+```
+
 ## API
 Bu proje `https://open-meteo.com` üzerinden ücretsiz API uç noktalarını kullanır (geocoding ve forecast).
 

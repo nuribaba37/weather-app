@@ -3,20 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hava Durumu Uygulaması</title>
+  <title>Hava Durumu — Hızlı ve Güzel</title>
+  <meta name="description" content="Hızlı ve basit hava durumu uygulaması — Türkiye il/ilçe araması, anlık ve 5 günlük tahmin." />
+  <meta name="theme-color" content="#74ebd5" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Hava Durumu</h1>
+    <header class="header">
+      <div class="logo" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="#FDBA74"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="#F97316" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <h1>Hava Durumu</h1>
+        <p class="tagline">İlçe bazlı arama, hızlı tahminler</p>
+      </div>
+    </header>
 
-    <div class="search-box">
-      <input type="text" id="cityInput" placeholder="Şehir adı gir..." aria-label="Şehir adı" autocomplete="off" autofocus />
+    <form id="searchForm" class="search-box" role="search" aria-label="Hava durumu arama">
+      <input type="text" id="cityInput" placeholder="İlçe veya şehir adı gir..." aria-label="Şehir veya ilçe adı" autocomplete="off" autofocus />
       <button id="clearBtn" class="clear-btn" aria-label="Temizle" title="Temizle">✖</button>
-      <button id="searchBtn">Ara</button>
-    </div>
+      <button id="searchBtn" type="submit">Ara</button>
+    </form>
 
     <div class="controls">
+      <div class="geo-control">
+        <button id="useLocationBtn" class="geo-btn" aria-label="Konumumu kullan">📍 Konumumu Kullan</button>
+      </div>
       <div class="unit-toggle" role="radiogroup" aria-label="Sıcaklık birimi">
         <button id="unitCBtn" class="unit-btn" aria-pressed="false">°C</button>
         <button id="unitFBtn" class="unit-btn" aria-pressed="false">°F</button>
@@ -24,11 +38,33 @@
     </div>
 
     <div id="suggestions" class="suggestions" role="listbox" aria-label="Öneriler"></div>
+    <div id="geoNotice" class="geo-notice" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+    <!-- Geolocation help modal -->
+    <div id="geoModalOverlay" class="modal-overlay" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="geoModalTitle">
+        <button id="geoModalClose" class="modal-close" aria-label="Kapat">×</button>
+        <h2 id="geoModalTitle">Konum izni nasıl açılır?</h2>
+        <div class="modal-body">
+          <p>Tarayıcınızda site için konum izni kapalıysa uygulama otomatik konum alamaz. Aşağıdaki kısa adımları izleyin:</p>
+          <ul>
+            <li><strong>Chrome / Edge:</strong> Adres çubuğundaki kilit simgesine tıklayın → Site ayarları → Konum → Allow.</li>
+            <li><strong>Firefox:</strong> Adres çubuğundaki kilit → Permissions → Location → Allow.</li>
+            <li><strong>Safari (macOS):</strong> Safari → Settings for This Website → Location → Allow.</li>
+          </ul>
+          <p>Değişiklikten sonra sayfayı yenileyin ve tekrar <em>Konumumu Kullan</em> butonuna basın.</p>
+        </div>
+      </div>
+    </div>
     <div id="recent" class="recent"></div>
 
-    <div id="result" class="result" aria-live="polite" aria-atomic="true">
+    <main id="result" class="result" aria-live="polite" aria-atomic="true">
       <p>Bir şehir arat.</p>
-    </div>
+    </main>
+
+    <footer class="footer">
+      <small>Veri: Open‑Meteo · İl/ilçe verisi: local JSON · Eğitim amaçlı.</small>
+    </footer>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
