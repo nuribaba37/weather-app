@@ -239,7 +239,77 @@ function renderWeatherFromData(weatherData, name='', country='') {
     }
   } catch (e) { console.warn('daily render err', e); }
 
-  resultDiv.innerHTML = html + dailyHtml;
+  // add hourly panel placeholder and render
+  resultDiv.innerHTML = html + dailyHtml + '<div id="hourlyPanel" class="forecast-hourly" style="display:none;"></div>';
+
+  // attach click handlers to daily cards to show hourly details
+  try {
+    const dailyTimes = (weatherData.daily && weatherData.daily.time) || [];
+    const hourly = weatherData.hourly || {};
+    const hourTimes = hourly.time || [];
+    const hourlyPanel = document.getElementById('hourlyPanel');
+    if (hourlyPanel) {
+      // close button
+      hourlyPanel.innerHTML = '';
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'unit-btn';
+      closeBtn.textContent = 'Kapat';
+      closeBtn.style.marginBottom = '8px';
+      closeBtn.addEventListener('click', () => { hourlyPanel.style.display = 'none'; document.querySelectorAll('.forecast-daily .card').forEach(c=>c.setAttribute('aria-expanded','false')); });
+      hourlyPanel.appendChild(closeBtn);
+      const rowsContainer = document.createElement('div');
+      rowsContainer.className = 'hour-rows';
+      hourlyPanel.appendChild(rowsContainer);
+
+      const cards = resultDiv.querySelectorAll('.forecast-daily .card');
+      cards.forEach((card, idx) => {
+        card.setAttribute('role','button');
+        card.setAttribute('tabindex','0');
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+          const date = dailyTimes[idx];
+          if (!date) return;
+          // toggle
+          if (hourlyPanel.dataset.date === date && hourlyPanel.style.display === 'block') {
+            hourlyPanel.style.display = 'none';
+            card.setAttribute('aria-expanded','false');
+            return;
+          }
+          // build hourly rows for the selected date
+          const hrs = [];
+          for (let i = 0; i < hourTimes.length; i++) {
+            const t = hourTimes[i];
+            if (!t) continue;
+            if (t.startsWith(date)) {
+              hrs.push({
+                time: t,
+                temp: (hourly.temperature_2m && hourly.temperature_2m[i] !== undefined) ? hourly.temperature_2m[i] : null,
+                humidity: (hourly.relativehumidity_2m && hourly.relativehumidity_2m[i] !== undefined) ? hourly.relativehumidity_2m[i] : null,
+                wind: (hourly.windspeed_10m && hourly.windspeed_10m[i] !== undefined) ? hourly.windspeed_10m[i] : null,
+                code: (hourly.weathercode && hourly.weathercode[i] !== undefined) ? hourly.weathercode[i] : null
+              });
+            }
+          }
+          // render
+          rowsContainer.innerHTML = '';
+          hrs.forEach(h => {
+            const hr = document.createElement('div');
+            hr.className = 'hour-row';
+            const tLbl = new Date(h.time).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+            hr.innerHTML = `<div class="hour-time">${escapeHtml(tLbl)}</div><div class="hour-icon">${getIcon(h.code)}</div><div class="hour-temp">${formatTemp(h.temp)}</div>`;
+            rowsContainer.appendChild(hr);
+          });
+          hourlyPanel.dataset.date = date;
+          hourlyPanel.style.display = hrs.length ? 'block' : 'none';
+          // collapse others
+          cards.forEach(c => c.setAttribute('aria-expanded','false'));
+          card.setAttribute('aria-expanded','true');
+          if (hrs.length) hourlyPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        card.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); card.click(); } });
+      });
+    }
+  } catch (e) { console.warn('hourly attach err', e); }
 }
 
 // show error in result area with optional retry

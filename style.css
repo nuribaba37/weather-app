@@ -140,6 +140,7 @@ body.thunder {
   text-align: center;
   box-shadow: 0 6px 12px rgba(0,0,0,0.07);
 }
+.forecast-daily .card[aria-expanded="true"] { box-shadow: 0 12px 24px rgba(0,0,0,0.12); transform: translateY(-4px); transition: transform .18s ease, box-shadow .18s ease; }
 
 .forecast-daily .card-icon {
   font-size: 22px;
@@ -171,6 +172,11 @@ body.thunder {
   text-align: center;
   box-shadow: 0 6px 12px rgba(0,0,0,0.06);
 }
+.forecast-hourly { margin-top: 12px; padding: 12px; background: rgba(255,255,255,0.92); border-radius: 8px; }
+.forecast-hourly .hour-row { display: inline-flex; flex-direction: column; gap: 6px; align-items: center; margin-right: 8px; }
+.forecast-hourly .hour-time { font-weight: 700; }
+.forecast-hourly .hour-icon { font-size: 18px; }
+.forecast-hourly .hour-temp { font-weight: 700; margin-top:4px; }
 
 .hour-row .hour-time { font-weight: 600; margin-bottom: 4px; }
 .hour-row .hour-temp { margin-top: 6px; font-weight: 600; }
