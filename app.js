@@ -211,7 +211,35 @@ function renderWeatherFromData(weatherData, name='', country='') {
       </div>
     </div>
   `;
-  resultDiv.innerHTML = html;
+  // build daily forecast (up to 5 days)
+  let dailyHtml = '';
+  try {
+    const d = weatherData.daily || {};
+    const times = d.time || [];
+    const maxes = d.temperature_2m_max || [];
+    const mins = d.temperature_2m_min || [];
+    const codes = d.weathercode || [];
+    if (times && times.length) {
+      const n = Math.min(5, times.length);
+      dailyHtml = '<div class="forecast-daily" aria-label="5 günlük tahmin"><div class="cards">';
+      for (let i = 0; i < n; i++) {
+        const dateStr = times[i];
+        const max = maxes[i];
+        const min = mins[i];
+        const code = codes[i];
+        let dayLabel = dateStr;
+        try { dayLabel = new Date(dateStr).toLocaleDateString('tr-TR', { weekday: 'short', day: 'numeric' }); } catch (e) {}
+        dailyHtml += `<div class="card" role="group" aria-label="Tahmin ${i+1}">`;
+        dailyHtml += `<div class="card-day">${escapeHtml(dayLabel)}</div>`;
+        dailyHtml += `<div class="card-icon">${getIcon(code)}</div>`;
+        dailyHtml += `<div class="card-temp"><div class="card-temp-max">${formatTemp(max)}</div><div class="card-temp-min">${formatTemp(min)}</div></div>`;
+        dailyHtml += `</div>`;
+      }
+      dailyHtml += '</div></div>';
+    }
+  } catch (e) { console.warn('daily render err', e); }
+
+  resultDiv.innerHTML = html + dailyHtml;
 }
 
 // show error in result area with optional retry
