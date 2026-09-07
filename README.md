@@ -26,7 +26,7 @@ Türkiye'deki il ve ilçeler için anlık tahmin, 7 günlük görünüm, hava ka
 | **Zor mühendislik kararları** | Koordinat veri kalitesi, izinli konum akışları, bozuk önbellekten güvenli dönüş ve erişilebilir etkileşimler |
 | **Doğrulama** | Playwright tarayıcı senaryoları, veri doğrulama kontrolleri ve güvenlik başlıklı canlı Vercel dağıtımı |
 
-Bu proje; dış API entegrasyonu, veri doğrulama, PWA yaşam döngüsü, erişilebilirlik ve gizliliği birlikte ele alan üretim odaklı bir ön yüz geliştirebildiğimi gösterir.
+Türkiye Hava, dış tahmin API’sini veri kalitesi, izinli konum, PWA yaşam döngüsü ve erişilebilirlikle birlikte sunar.
 
 ## English
 

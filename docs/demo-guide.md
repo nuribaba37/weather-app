@@ -1,47 +1,54 @@
-# 3 Dakikalık Demo Akışı
+# 3 dakikalık demo
 
-Bu senaryo canlı Hava Durumu PWA'sını veri kalitesi, gizlilik, çevrimdışı kullanım ve erişilebilirlikle birlikte gösterir.
+Türkiye Hava’yı tahmin kartı olarak değil; ilçe verisi, izin ve çevrimdışı doğrulukla gösterir.
 
 ## Hazırlık
 
-- [Canlı demoyu](https://turkiye-hava-pwa.vercel.app) aç.
-- Tarayıcı geliştirici araçlarında mobil görünümü ve çevrimdışı modu hazır tut.
-- Arama örneği olarak `Karesi / Balıkesir` kullan.
+- [Canlı demo](https://turkiye-hava-pwa.vercel.app) açık olsun.
+- Geliştirici araçlarında mobil görünüm ve çevrimdışı mod hazır olsun.
+- Arama örneği: `Karesi / Balıkesir`.
 
 ## 0:00–0:30 — Problem
 
-“Türkiye'de ilçe düzeyinde hava verisini hızlı sunarken yanlış koordinat, belirsiz ilçe adı, konum izni ve eski önbellek gibi ürün risklerini de yönetmek gerekiyor.”
+İlçe düzeyinde hızlı hava verisi, yanlış koordinat, eş adlı ilçe, konum izni ve bayat önbellekle bozulur. Ürün bu riskleri arayüzde gizlemez; kaynak, zaman ve konum kalitesini gösterir.
 
-## 0:30–1:15 — Arama ve veri kaynağı
+## 0:30–1:15 — Arama ve kaynak
 
-1. `Karesi` ara ve doğru il/ilçe sonucunu seç.
-2. Anlık hava, 24 saatlik grafik ve 7 günlük tahmini göster.
-3. Veri bilgisi bölümündeki kaynak, alınma zamanı, tahmin zamanı ve koordinatı aç.
-4. Aynı isimli ilçelerde il seçiminin zorunlu tutulduğunu anlat.
+1. `Karesi` arayıp doğru il/ilçe çiftini seçin.
+2. Anlık durum, 24 saat ve 7 günlük tahmini gösterin.
+3. Kaynak, alınma zamanı, tahmin zamanı ve koordinatı açın.
+4. Eş adlı ilçelerde il seçiminin zorunlu olduğunu belirtin.
 
-Vurgu: 973 ilçe koordinatı sınır, kümelenme ve iller arası yanlış ortak koordinat testlerinden geçer.
+973 ilçe koordinatı sınır, kümelenme ve iller arası yanlış ortak nokta testlerinden geçer.
 
-## 1:15–2:00 — Risk ve kişiselleştirme
+## 1:15–2:00 — Risk özeti
 
-1. Otomatik 24 saatlik risk özetini göster.
-2. Bunun resmî meteorolojik uyarı olmadığını belirten açıklamayı işaret et.
-3. Yağış, rüzgâr ve UV eşiklerini değiştir.
-4. Dışarı planı, şemsiye ve hava kalitesi önerilerini göster.
+1. 24 saatlik risk özetini gösterin.
+2. Bunun resmî meteoroloji uyarısı olmadığını okuyun.
+3. Yağış, rüzgâr ve UV eşiklerini değiştirin.
+4. Hava kalitesi yoksa “iyi” varsayılmadığını, bilinmiyor metninin çıktığını gösterin.
 
-## 2:00–2:35 — Gizlilik ve çevrimdışı kullanım
+## 2:00–2:35 — Gizlilik ve çevrimdışı
 
-1. GPS'in yalnız butona basıldığında istendiğini anlat.
-2. Konum reddedildiğinde IP servisinin otomatik çağrılmadığını göster.
-3. Bir konumu kaydet, sonra tarayıcıyı çevrimdışı moda al.
-4. Son güvenilir tahminin açık biçimde “kayıtlı veri” olarak açıldığını göster.
+1. GPS’in yalnızca düğmeyle istendiğini anlatın.
+2. Reddedilince IP konumunun otomatik çağrılmadığını gösterin.
+3. Bir yeri kaydedip ağı kesin.
+4. Son kaydın “canlı” değil, kayıtlı veri olarak işaretlendiğini gösterin.
 
 ## 2:35–3:00 — Kapanış
 
-“Bu projede dış API entegrasyonunun yanında 973 ilçelik veri doğrulama, izinli konum akışları, PWA yaşam döngüsü, erişilebilirlik ve 31 otomatik testi birlikte yönettim.”
+Türkiye Hava, Open-Meteo entegrasyonunu veri kalitesi, izinli konum, PWA güncelleme onayı ve erişilebilirlikle birlikte sunar. Anahtar gerektirmez; son tahmin çevrimdışı açılır.
 
-## Görüşmede gelebilecek sorular
+## Olası sorular
 
-- Koordinat veri kalitesini nasıl doğruladın?
-- Çevrimdışı verinin canlı veri gibi görünmesini nasıl engelledin?
-- GPS ve yaklaşık IP konumunda gizliliği nasıl korudun?
-- Service worker güncellemesini neden kullanıcı onayına bağladın?
+**Koordinat kalitesini nasıl doğruladınız?**  
+Sınır dışı nokta, aynı koordinatı paylaşan farklı iller ve küme sapması otomatik testtedir. Şüpheli kayıt yayınlanmaz.
+
+**Eski önbellek canlı gibi görünmesin diye?**  
+Kayıt zamanı ve “kayıtlı veri” rozeti zorunludur. Service worker ağı gizlemez; bayat yanıtı etiketler.
+
+**GPS ve IP gizliliği?**  
+Konum izni kullanıcı eylemine bağlıdır. IP yolu ayrı onay ister; redde sessizce düşülmez.
+
+**SW güncellemesi neden onaylı?**  
+Anında `skipWaiting` demoyu ve formları böler. Kullanıcı yeni kabuğu bilinçli alır.
