@@ -1,4 +1,4 @@
-# Hava Durumu
+# Türkiye Hava
 
 <p align="center">
   <img src="docs/social-preview.png" alt="Türkiye Hava — il ve ilçeler için çevrimdışı PWA" width="1100">
@@ -10,7 +10,9 @@
 
 <p align="center">
   <a href="https://github.com/Nurettin-Erdogan/weather-app/actions/workflows/ci.yml"><img src="https://github.com/Nurettin-Erdogan/weather-app/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI durumu"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-0f766e.svg" alt="MIT Lisansı"></a>
+  <a href="https://github.com/Nurettin-Erdogan/weather-app/actions/workflows/codeql.yml"><img src="https://github.com/Nurettin-Erdogan/weather-app/actions/workflows/codeql.yml/badge.svg?branch=main" alt="CodeQL güvenlik analizi"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/lisans-MIT-0f766e.svg" alt="MIT Lisansı"></a>
+  <a href="https://turkiye-hava-pwa.vercel.app"><img src="https://img.shields.io/badge/canl%C4%B1%20demo-Vercel-0f766e.svg" alt="Canlı demo"></a>
 </p>
 
 Türkiye'deki il ve ilçeler için anlık tahmin, 7 günlük görünüm, hava kalitesi ve günlük planlama önerileri sunan; kurulum gerektirmeyen, gizlilik odaklı bir Progressive Web App.
@@ -25,6 +27,10 @@ Türkiye'deki il ve ilçeler için anlık tahmin, 7 günlük görünüm, hava ka
 | **Doğrulama** | Playwright tarayıcı senaryoları, veri doğrulama kontrolleri ve güvenlik başlıklı canlı Vercel dağıtımı |
 
 Bu proje; dış API entegrasyonu, veri doğrulama, PWA yaşam döngüsü, erişilebilirlik ve gizliliği birlikte ele alan üretim odaklı bir ön yüz geliştirebildiğimi gösterir.
+
+## English
+
+**Türkiye Hava** is a privacy-minded Progressive Web App for Turkish provinces and districts: Open-Meteo forecasts, installable offline shell, no API keys. Live demo: [turkiye-hava-pwa.vercel.app](https://turkiye-hava-pwa.vercel.app).
 
 <p align="center">
   <a href="https://turkiye-hava-pwa.vercel.app"><strong>Canlı demoyu aç →</strong></a>

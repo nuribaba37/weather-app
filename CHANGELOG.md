@@ -4,6 +4,8 @@ Bu projede anlamlı kullanıcı değişiklikleri bu dosyada özetlenir.
 
 ## Unreleased
 
+- README ve PWA markası “Türkiye Hava” olarak hizalandı; CodeQL + canlı demo badge eklendi.
+- İngilizce portföy özeti eklendi.
 - Tahmin görünümü 5 günden 7 güne çıkarıldı.
 - Günlük kartlara rüzgâr ve UV özeti eklendi.
 - Açılışta son kullanılan konumu hızlı geri yükleme desteği eklendi.

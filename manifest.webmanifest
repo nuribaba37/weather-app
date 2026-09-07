@@ -1,7 +1,7 @@
 {
-  "name": "Hava Durumu - Türkiye",
-  "short_name": "Hava",
-  "description": "Türkiye il ve ilçeleri için ayrıntılı hava tahminleri.",
+  "name": "Türkiye Hava",
+  "short_name": "Türkiye Hava",
+  "description": "Türkiye il ve ilçeleri için gizlilik odaklı hava tahmini PWA’sı.",
   "id": "./",
   "lang": "tr",
   "start_url": "./",
