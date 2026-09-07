@@ -671,11 +671,13 @@ function renderDayPlan(weather, airQuality, language, unit) {
       ? 'umbrellaMedium'
       : 'umbrellaLow';
   const aqi = Number(airQuality?.current?.european_aqi);
-  const adviceKey = !Number.isFinite(aqi) || aqi <= 40
-    ? 'airAdviceGood'
-    : aqi <= 60
-      ? 'airAdviceModerate'
-      : 'airAdvicePoor';
+  const adviceKey = !Number.isFinite(aqi)
+    ? 'airAdviceUnknown'
+    : aqi <= 40
+      ? 'airAdviceGood'
+      : aqi <= 60
+        ? 'airAdviceModerate'
+        : 'airAdvicePoor';
   const bestRain = bestIndex === null ? null : hourly.precipitation_probability?.[bestIndex];
   const bestWind = bestIndex === null ? null : hourly.wind_speed_10m?.[bestIndex];
 
@@ -714,11 +716,13 @@ function renderAirQualityDetails(airQuality, language) {
   const air = airQuality?.current || {};
   const aqi = Number(air.european_aqi);
   if (!Number.isFinite(aqi) && !Number.isFinite(Number(air.pm2_5)) && !Number.isFinite(Number(air.pm10))) return '';
-  const adviceKey = !Number.isFinite(aqi) || aqi <= 40
-    ? 'airAdviceGood'
-    : aqi <= 60
-      ? 'airAdviceModerate'
-      : 'airAdvicePoor';
+  const adviceKey = !Number.isFinite(aqi)
+    ? 'airAdviceUnknown'
+    : aqi <= 40
+      ? 'airAdviceGood'
+      : aqi <= 60
+        ? 'airAdviceModerate'
+        : 'airAdvicePoor';
   return `<section class="air-details" aria-labelledby="airDetailsHeading">
     <div><span class="eyebrow">AQ</span><h2 id="airDetailsHeading">${escapeHtml(t('airDetails'))}</h2></div>
     <div class="air-detail-values">
