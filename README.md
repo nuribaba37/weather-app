@@ -1,7 +1,7 @@
 # Türkiye Hava
 
 <p align="center">
-  <img src="docs/social-preview.png" alt="Türkiye Hava — il ve ilçeler için çevrimdışı PWA" width="1100">
+  <img src="docs/social-preview.jpg" alt="Türkiye Hava — il ve ilçeler için çevrimdışı PWA" width="1100">
 </p>
 
 <p align="center">

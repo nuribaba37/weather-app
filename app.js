@@ -204,6 +204,27 @@ function dismissInstallCard() {
   updateInstallCard();
 }
 
+function describeDataError(error, fallbackKey = 'dataError') {
+  const name = String(error?.name || '');
+  const message = String(error?.message || '').toLowerCase();
+  if (name === 'TimeoutError' || message.includes('timeout') || message.includes('timed out')) {
+    return t('dataErrorTimeout');
+  }
+  if (name === 'TypeError' || message.includes('network') || message.includes('failed to fetch')) {
+    return t('dataErrorNetwork');
+  }
+  if (message.includes('photon') || message.includes('geocode') || message.includes('geocod')) {
+    return t('dataErrorGeocode');
+  }
+  if (message.includes('ipwho') || message.includes('ip location')) {
+    return t('dataErrorIp');
+  }
+  if (message.includes('open-meteo') || message.includes('forecast') || message.includes('air-quality')) {
+    return t('dataErrorForecast');
+  }
+  return t(fallbackKey);
+}
+
 function renderError(message, retryAction = null) {
   state.retryAction = retryAction;
   elements.result.innerHTML = `
@@ -475,7 +496,7 @@ async function handleSearch() {
       location = await searchRemoteLocation(query, state.settings.language, controller.signal);
     } catch (error) {
       if (error.name === 'AbortError') return;
-      renderError(t('dataError'), handleSearch);
+      renderError(describeDataError(error, 'dataErrorGeocode'), handleSearch);
       return;
     } finally {
       finishRequest(controller);
@@ -534,7 +555,7 @@ async function openWeather(location, options = {}) {
     if (cached?.payload) {
       showCachedWeather(cached);
     } else if (!options.silent) {
-      renderError(t('dataError'), () => openWeather(safeLocation, options));
+      renderError(describeDataError(error, 'dataErrorForecast'), () => openWeather(safeLocation, options));
     }
   } finally {
     finishRequest(controller);
@@ -971,19 +992,18 @@ async function handleUseLocation() {
       try {
         address = await reverseGeocodeLocation(latitude, longitude, state.settings.language);
       } catch {
-        showNotice(t('locationUnavailable'), 'error');
-        return;
+        address = null;
       }
       const countryCode = String(address?.countrycode || '').trim().toUpperCase();
-      if (!countryCode) {
-        showNotice(t('locationUnavailable'), 'error');
-        return;
-      }
-      if (countryCode !== 'TR') {
+      if (address && countryCode && countryCode !== 'TR') {
         showNotice(t('outsideTurkey'), 'warning');
         return;
       }
-      const resolved = findDistrictByAddress(address, state.settings.language);
+      if ((!address || !countryCode) && !(nearest && nearest.distanceKm <= 40)) {
+        showNotice(t('locationUnavailable'), 'error');
+        return;
+      }
+      const resolved = address ? findDistrictByAddress(address, state.settings.language) : null;
       const location = resolved || nearest || {
         name: state.settings.language === 'tr' ? 'Konumum' : 'My location',
         admin1: '',
