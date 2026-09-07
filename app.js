@@ -999,7 +999,9 @@ async function handleUseLocation() {
         showNotice(t('outsideTurkey'), 'warning');
         return;
       }
-      if ((!address || !countryCode) && !(nearest && nearest.distanceKm <= 40)) {
+      // Proximity to a Turkish district does not prove which side of a border
+      // the user is on. Require country confirmation before opening weather.
+      if (!countryCode) {
         showNotice(t('locationUnavailable'), 'error');
         return;
       }

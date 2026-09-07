@@ -1,5 +1,5 @@
 const CACHE_PREFIX = 'weather-app-';
-const CACHE_VERSION = `${CACHE_PREFIX}v14-final-showcase`;
+const CACHE_VERSION = `${CACHE_PREFIX}v15-verified-location`;
 const APP_SHELL = [
   './',
   './index.html',

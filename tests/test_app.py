@@ -539,6 +539,17 @@ class WeatherAppTests(unittest.TestCase):
         self.assertEqual(self.page_errors, [])
 
     def test_reverse_geocode_failure_does_not_map_a_border_region_to_turkey(self):
+        self._assert_unverified_border_location_is_rejected(503, {})
+
+    def test_empty_reverse_geocode_does_not_map_a_border_region_to_turkey(self):
+        self._assert_unverified_border_location_is_rejected(200, {"features": []})
+
+    def test_missing_country_does_not_map_a_border_region_to_turkey(self):
+        self._assert_unverified_border_location_is_rejected(
+            200, {"features": [{"properties": {"city": "Kuşadası"}}]}
+        )
+
+    def _assert_unverified_border_location_is_rejected(self, status, payload):
         self.context.close()
         self.context = self.browser.new_context(locale="tr-TR", service_workers="block")
         self.page = self.context.new_page()
@@ -552,7 +563,7 @@ class WeatherAppTests(unittest.TestCase):
         self.page.route("https://air-quality-api.open-meteo.com/**", self._air_route)
         self.page.route(
             "https://photon.komoot.io/**",
-            lambda route: route.fulfill(status=503, content_type="application/json", body='{}'),
+            lambda route: route.fulfill(status=status, content_type="application/json", body=json.dumps(payload)),
         )
         self.page.add_init_script("""
             Object.defineProperty(navigator, 'geolocation', {
@@ -570,6 +581,9 @@ class WeatherAppTests(unittest.TestCase):
         self.assertEqual(len(self.reverse_requests), 1)
         self.assertEqual(self.forecast_queries, [])
         self.assertTrue(self.page.locator("#locationBtn").is_enabled())
+        self.assertTrue(self.page.locator("#searchBtn").is_enabled())
+        self.search("Karesi")
+        self.assertTrue(self.forecast_queries)
         self.assertEqual(self.page_errors, [])
 
     def test_ip_location_stays_city_level_and_is_marked_approximate(self):
