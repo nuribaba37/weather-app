@@ -17,13 +17,13 @@
 
 Türkiye'deki il ve ilçeler için anlık tahmin, 7 günlük görünüm, hava kalitesi ve günlük planlama önerileri sunan; kurulum gerektirmeyen, gizlilik odaklı bir Progressive Web App.
 
-## Portföy özeti
+## Özet
 
 | | |
 | --- | --- |
 | **Problem** | Türkiye'de ilçe düzeyinde hava verisini hızlı, anlaşılır ve gizlilik tercihlerine saygılı biçimde sunmak |
 | **Çözüm** | API anahtarı gerektirmeyen, kurulabilir, çevrimdışı son tahmini açabilen ve 973 ilçeyi destekleyen PWA |
-| **Zor mühendislik kararları** | Koordinat veri kalitesi, izinli konum akışları, bozuk önbellekten güvenli dönüş ve erişilebilir etkileşimler |
+| **Kararlar** | Koordinat veri kalitesi, izinli konum akışları, bozuk önbellekten güvenli dönüş ve erişilebilir etkileşimler |
 | **Doğrulama** | Playwright tarayıcı senaryoları, veri doğrulama kontrolleri ve güvenlik başlıklı canlı Vercel dağıtımı |
 
 Türkiye Hava, dış tahmin API’sini veri kalitesi, izinli konum, PWA yaşam döngüsü ve erişilebilirlikle birlikte sunar.
@@ -35,7 +35,7 @@ Türkiye Hava, dış tahmin API’sini veri kalitesi, izinli konum, PWA yaşam d
 <p align="center">
   <a href="https://turkiye-hava-pwa.vercel.app"><strong>Canlı demoyu aç →</strong></a>
   &nbsp;·&nbsp;
-  <a href="docs/demo-guide.md"><strong>3 dakikalık demo</strong></a>
+  <a href="docs/demo-guide.md"><strong>Canlı tur</strong></a>
   &nbsp;·&nbsp;
   <a href="#testler">Testler</a>
   &nbsp;·&nbsp;
