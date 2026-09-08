@@ -17,6 +17,16 @@
 
 Türkiye'deki il ve ilçeler için anlık tahmin, 7 günlük görünüm, hava kalitesi ve günlük planlama önerileri sunan; kurulum gerektirmeyen, gizlilik odaklı bir Progressive Web App.
 
+## Bir dakikada dene
+
+1. [Uygulamayı aç](https://turkiye-hava-pwa.vercel.app) ve bir ilçe ara; aynı isimli ilçelerde ili seç.
+2. Günlük tahminlerden birini seçerek saatlik görünümü incele.
+3. Bir tahmin açıldıktan sonra bağlantıyı kesip son kaydedilen tahmine erişimi dene.
+
+**Teknik odak:** Konum doğrulaması, eski veriyi canlı veriden ayırma ve kullanıcı onaylı PWA güncellemeleri. [Konum ve veri akışı](app.js) · [Önbellek yönetimi](service-worker.js)
+
+**Sınırlar:** Çevrimdışı görünüm yeni tahmin üretmez; son kaydedilen veriyi gösterir. GPS ülke doğrulaması yapılamazsa uygulama yakın ilçeyi tahmin ederek seçmez; manuel arama kullanılabilir. Otomatik risk özeti resmî meteorolojik uyarı değildir.
+
 ## Özet
 
 | | |
